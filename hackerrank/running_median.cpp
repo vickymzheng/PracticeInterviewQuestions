@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <stdlib.h> 
+#include <iomanip>
 
 using namespace std; 
 
@@ -77,6 +78,8 @@ int main(){
     int n;
     cin >> n;
     median_heap mp; 
+    
+    std::cout << std::setprecision(1) << std::fixed;
     
     for(int a_i = 0; a_i < n;++a_i){
         int to_add; 
