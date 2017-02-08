@@ -59,7 +59,7 @@ class node:
         print "newNode: " + str(newNode.data)
         it = 0
         while True:
-            numNodesThisLevel = len(thisLevel)
+            numNodesThisLevel = len(thisLevel) #should be a power of 2
             expectedNextLevel = 2**numNodesThisLevel
             nextLevel = []
             nodesNextLevel = 0
