@@ -37,7 +37,7 @@ def min_node_val(root, min_val = 1000):
         min_val = min_node_val (root.right, min(root.right.val, min_val))
     return min_val
     
-def is_BST(root, bst = True):
+def is_BST_n2(root, bst = True):
     # Max element to the left of the root has to be less than root
     # Min element to the right of the root has to be greater than equal to the root
     # if either of those conditions is violated, I would return False
@@ -51,6 +51,20 @@ def is_BST(root, bst = True):
         bst = is_BST(root.right, (min_node_val(root.right) >= root.val) and bst)
     print(str(root.val) + str(bst))
     return bst
+
+def is_BST(root, upper_bound = 1000, lower_bound = -1000):
+    if root is None: 
+        return True 
+    if (root.val > upper_bound) or (root.val < lower_bound):
+        return False 
+    bst = True
+    if root.left is not None:
+        bst = is_BST(root.left, root.val, lower_bound)
+        if (bst is False):
+            return False
+    if root.right is not None: 
+        bst = is_BST(root.right, upper_bound, root.val)
+    return bst 
 
 class tree_node: 
     def __init__(self, val = None, left = None, right = None):
@@ -91,9 +105,10 @@ class tree_node:
             this_level = next_level 
 
 
+
 node = tree_node(5)
 node.left = tree_node(3)
 node.right = tree_node(6)
-node.left.right = tree_node(4)
+node.left.right = tree_node(7)
 node.print_tree()
 print (is_BST(node))
