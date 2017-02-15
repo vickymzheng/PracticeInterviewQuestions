@@ -1,34 +1,3 @@
-# 20170211 - Vicky's 3rd Interview Feedback: Check if a BT is a BST
-
-# ---------------------------------------------------------------------------------------------------
-# Score:
-# ---------------------------------------------------------------------------------------------------
-# [0.5/1 point] Explains strategy in a clear way to the interviewer before starting to code and confirms with interviewer if that makes sense and it is okay to code that initial solution (1 point)
-#     - You explained your strategy of finding if there are violations in max_val in left subtree is smaller than root and min_val in right_substree is greater than root, but you didn't explain what happens after comparing just the root. You should have answered whether that's sufficient or if you are necessarily a BST at the root if you are a BST at the root.left and root.right?
-# [0.0/1 point] Asks clarifying questions before jumping into code (ex. "Can we assume all inputs will be within a valid range or do we need to error handle?", "Is our function being used as an API endpoint or a part of a script in a data pipeline?", etc) (1 point)
-#     - Should have asked what data the nodes hold instead of just assuming they're integers
-#     - Good that you asked for the min and max values of the data the node should return (I told you -1000 to 1000 and all are integers)    
-# [1.0/2 points] Gets at least a working solution down (2 points)
-#     - Really close to getting a working solution
-# [0.0/2 points] Gets the optimal solution (2 points)
-# [1.0/1 point] Creates and runs adequate tests that ensure that the code written is correct (1 point)
-#     - You thought of good test cases and covered a lot.
-# [1.5/2 points] Explains the time complexity clearly and well (2 points)
-#     - You initially thought O(N) but really this was O(N^2)
-# [0.0/1 point] Explains the space complexity clearly and well (1 point)
-#     - Never got to this point
-# ---------------------------------------------------------------------------------------------------
-# [5.0/10 points] total
-# ---------------------------------------------------------------------------------------------------
-# Comments:
-# ---------------------------------------------------------------------------------------------------
-# - Should know that Python classes are defined in camelCase and variables are underscore_case 
-# - All functions that are related to a class should exist in the class (example: print_level should not be defined outside). If you don't want callers of the function to use it, append an underscore in front so that it's _print_level() and made private
-# - You repeat a lot of work for every node looking through each node's entire subtree
-# ---------------------------------------------------------------------------------------------------
-
-# 45 minutes total, end at 3:24pm 
-
 #     5
 #    / \
 #   3   6
