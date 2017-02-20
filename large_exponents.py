@@ -1,5 +1,6 @@
 import math 
 # calculate x^n where the value of x^n will exceed 2^32 and return the answer as a string
+# This currently only works for single digit x
 
 def large_multiply(value, x):
 	v_len = len(value)
@@ -13,6 +14,8 @@ def large_multiply(value, x):
 		else: 
 			value[i] = partial_prod
 			add_extra = 0
+
+	#Append remaining overflow if necessary 
 	if add_extra > 0:
 		value = [add_extra] + value
 
@@ -28,4 +31,4 @@ def large_exponent(x, n):
 	value = ''.join([str(x) for x in value])
 	return value
 
-print (large_exponent(5,20))
+print (large_exponent(9,14))
