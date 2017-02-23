@@ -1,4 +1,10 @@
 def exponents(a,b):
+	if (b < 0):
+		inv_power = exponents(a,-1*b)
+		if (inv_power == 0):
+			print "Invalid inputs"
+			return 
+		return 1/inv_power
 	if b == 0:
 		return 1
 	if b == 1:
