@@ -104,11 +104,30 @@ class tree_node:
                 next_level.append(node.right)
             this_level = next_level 
 
+def size(curr_root):
+    if (curr_root == None):
+        return 0
+    return 1+size(curr_root.left)+size(curr_root.right)
+
+def nth_element(curr_root, n):
+    if curr_root == None:
+        return None
+    left_sub_size = size(curr_root.left)
+    if (left_sub_size == (n-1)):
+        return curr_root.val
+    if (left_sub_size >= n):
+        return nth_element(curr_root.left,n)
+    else:
+        return nth_element(curr_root.right, n-(left_sub_size+1))
 
 
 node = tree_node(5)
 node.left = tree_node(3)
 node.right = tree_node(6)
-node.left.right = tree_node(7)
-node.print_tree()
+node.left.right = tree_node(4)
+
 print (is_BST(node))
+print(nth_element(node, 1))
+print(nth_element(node,  2))
+print(nth_element(node,  3))
+print(nth_element(node,  4))
