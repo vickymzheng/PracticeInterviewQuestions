@@ -64,6 +64,8 @@ class priority_queue:
 		print(self.storage) 
 
 def dijkstra(g, s, t):
+	if (s == t):
+		return 0
 	n = len(g)
 	node_dists = [inf]*n
 	node_dists[s] = 0
@@ -73,24 +75,42 @@ def dijkstra(g, s, t):
 	visited[current] = 1
 	pq = priority_queue()
 	pq.add((s,0))
-	while (sum(visited) < n):
+	while not pq.empty():
 		current = pq.top()
+		pq.pop()
 		node = current[0]
 		dist = current[1]
-		visited[node] = 1
-		pq.pop()
 		neighbors = g[node]
 		for i,neigh_dist in enumerate(neighbors):
-			new_pos_dist = dist + neigh_dist
-			if new_pos_dist < node_dists[i]:
-				node_dists[i] = new_pos_dist
-			if visited[i] == 0:
-				pq.add((i, node_dists[i]))
+			if (neigh_dist != 0):
+				new_pos_dist = dist + neigh_dist
+				if new_pos_dist < node_dists[i]:
+					node_dists[i] = new_pos_dist
+				if visited[i] == 0:
+					pq.add((i, node_dists[i]))
 	return node_dists[t]
 
-	
-	
+def print_mat(mat):
+	for row in mat:
+		print(row)
 
+def floyd_worshall(g):
+	n = len(g)
+	paths = [ [[] for j in range(n)] for x in range(n)]
+	for i in range(n):
+		for j in range(n):
+			paths[i][j].append(i)
+			paths[i][j].append(j)
+
+	for k in range(n):
+		for i in range(n):
+			for j in range(n):
+				if g[i][j] > g[i][k] + g[k][j]:
+					g[i][j] = g[i][k] + g[k][j]
+					paths[i][j] = paths[i][k] + paths[k][j][1:]
+
+	print_mat(paths)
+	print_mat(g)
 g1 = [[0, 2, 2, 2, -1], 
 	  [9, 0, 2, 2, -1], 
 	  [9, 3, 0, 2, -1], 
@@ -104,8 +124,10 @@ g2 = [[0, 1, 1, 1, 1],
 	  [1, 1, 1, 1, 0]]
 
 g3 = [[0, 1, 5],
-	  [0, 0, 1],
+	  [0, 0, 7],
 	  [0, 0, 0]]
 
+floyd_worshall(g1)
 
-print(dijkstra(g3, 0, 2))
+# lists are pass by ref in python
+print_mat(g1)

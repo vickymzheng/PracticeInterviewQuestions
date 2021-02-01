@@ -1,6 +1,10 @@
 #include <string>
 #include <iostream>
 #include <stack>
+
+// Write a function which returns true if the two specificed finary trees represent the same string, 
+// and false otherwise. Note that two different shaped trees could have the same string representation
+
 struct tnode {
 	explicit tnode(tnode* left_ = nullptr, tnode* right_ = nullptr, std::string val_ = "") : left(left_), right(right_), val(val_) {}
 	tnode* left;
@@ -93,10 +97,10 @@ int main() {
 	tnode* tree1 = new tnode();
 	tree1->left = new tnode(new tnode(nullptr, nullptr, "he"), nullptr, "");
 	tree1->right = new tnode(new tnode(nullptr, nullptr, "l"), new tnode(nullptr, nullptr, "lo"), "");
-	// print_leaf(tree1);	
+	print_leaf(tree1);	
 
 	tnode* tree2 = new tnode(new tnode(nullptr, nullptr, "hel"), new tnode(nullptr, nullptr, "lo"), "");
-	// print_leaf(tree2);
+	print_leaf(tree2);
 
 	tnode* tree3 = new tnode(nullptr, nullptr, "N1");
 	tree3->left = new tnode(new tnode(nullptr, nullptr, "N4 - he"), new tnode(nullptr, nullptr, "N5 - l"), "N2");
@@ -117,5 +121,5 @@ int main() {
 	int index2 = 0;
 
 
-	print_leaves(trav3);
+	// print_leaves(trav3);
 }
