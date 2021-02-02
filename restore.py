@@ -17,6 +17,12 @@
 # 
 
 
+# Given a tree, get all of the contents of the tree as a list of integers
+# (store)
+# Given a list of integers, derive the tree 
+# (restore)
+# restore(store(x)) == X
+
 class tree_node: 
     def __init__(self, val = None, left = None, right = None):
         self.val = val
@@ -71,7 +77,7 @@ def nth_element(curr_root, n):
     else:
         return nth_element(curr_root.right, n-(left_sub_size+1))
 
-def store(root):
+def store1(root):
     if root == None:
         return []
     to_process = []
@@ -90,7 +96,8 @@ def store(root):
             to_process.append([node_id.right, ind * 2 + 2])
     return nums + pos
 
-def restore(tree_info):
+# Solution 1 written in 2019
+def restore1(tree_info):
     n = len(tree_info)
     if (n == 0):
         return None
@@ -126,21 +133,100 @@ def restore(tree_info):
             curr_node = to_process[0]
     return root
 
-
 node = tree_node(5)
 node.left = tree_node(3)
 node.right = tree_node(6)
-node.left.right = tree_node(4)
-node.print_tree()
+node.left.right = tree_node(7)
+# node.print_tree()
 # print(nth_element(node, 1))
 # print(nth_element(node,  2))
 # print(nth_element(node,  3))
 # print(nth_element(node,  4))
 # print(store(node))
-reconstructed_tree = restore(store(node))
-print("Reconstructed tree: ")
-reconstructed_tree.print_tree()
+# reconstructed_tree = restore(store(node))
+# print("Reconstructed tree: ")
+# reconstructed_tree.print_tree()
 # print(nth_element(reconstructed_tree, 1))
 # print(nth_element(reconstructed_tree,  2))
 # print(nth_element(reconstructed_tree,  3))
 # print(nth_element(reconstructed_tree,  4))
+
+# Solution 2 written in 2021 below:
+# Left right root
+def post_order(t):
+    if (t == None):
+        return []
+    if (t.left == None and t.right == None):
+        return [t.val]
+    return post_order(t.left) + post_order(t.right) + [t.val]
+# Left root right
+def pre_order(t):
+    if (t == None):
+        return []
+    ans = []
+    if t.left != None:
+        ans = pre_order(t.left)
+    ans.append(t.val)
+    return ans + pre_order(t.right)
+
+def store2(t):
+    return post_order(t), pre_order(t)
+
+#     5
+#    / \
+#   3   6
+#    \   \
+#     4   8
+#          \
+#           9
+#            \
+#             10
+#              \
+#               ...
+#     5
+#    / \
+#   3   6
+#    \
+#     7
+# 
+
+def get_post_vals(postord, pre_order_vals):
+    n = len(postord)
+    if (n == 0):
+        return []
+    max_ind = 0
+    min_ind = n
+    for val in pre_order_vals:
+        ind = postord.index(val)
+        if ind > max_ind:
+            max_ind = ind
+        if ind < min_ind:
+            min_ind = ind
+    return postord[min_ind:max_ind+1]
+
+
+def restore2(postord, preord):
+    # post order and pre order are same length
+    n = len(postord)
+
+    # empty tree
+    if n == 0:
+        return None
+
+    root = tree_node(postord[-1])
+    ind = preord.index(postord[-1])
+    
+    left_tree_vals_pre = preord[:ind]
+    right_tree_vals_pre = preord[ind+1:]
+    
+    left_tree_vals_post = get_post_vals(postord, left_tree_vals_pre)
+    right_tree_vals_post = get_post_vals(postord, right_tree_vals_pre)
+
+    root.left = restore2(left_tree_vals_post, left_tree_vals_pre)
+    root.right = restore2(right_tree_vals_pre, right_tree_vals_post)
+    return root
+    
+print(post_order(node))
+print(pre_order(node))
+postord, preord = store2(node)
+print(store2(restore2(postord, preord)))
