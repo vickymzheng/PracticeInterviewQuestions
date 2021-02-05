@@ -57,6 +57,10 @@ def is_leaf(node):
     if node.left == None and node.right == None:
         return True
 
+def get_all_leaves(s):
+    while len(s) > 0:
+        leaf = get_next_leaf(s)
+        print(leaf)
 # gets a stack of tree traversal 
 def get_next_leaf(s):
     while (len(s) > 0 and s[-1].visited):
@@ -76,15 +80,6 @@ def get_next_leaf(s):
     s[-1].visited = True
     return s[-1].val
 
-def leaf_substr(leaf1, leaf2):
-    if leaf1 == None and leaf2 == None:
-        return True
-    if leaf1 == None:
-        return False
-    if leaf2 == None:
-        return False
-    return leaf1.val.starts_with(leaf2.val)
-
 # what if the whole string can't fit into memory?
 def same_tree_string_low_mem(t1, t2):
     if t1 == None and t2 == None:
@@ -101,19 +96,24 @@ def same_tree_string_low_mem(t1, t2):
     index1 = 0
     index2 = 0 
     while(len(s1) > 0 and len(s2) > 0):
-        line_to_print = f"leaf1: {leaf1[index1:]} leaf2: {leaf2[index2:]}"
-        print(line_to_print)
+        print("")
+        print(f"leaf1: {leaf1}, leaf2: {leaf2}")
+        print(f"index1: {index1}, index2: {index2}")
+        print(f"leaf1[index1:]: {leaf1[index1:]}, leaf2[index2:]: {leaf2[index2:]}")
         # leaf2 is leaf1's prefix
         if leaf1[index1:].startswith(leaf2[index2:]) :
-            index1 = len(leaf2) - index2
+            print("leaf2 prefix of leaf1 selected")
+            index1 = index1 + (len(leaf2) - index2)
             index2 = 0 
             leaf2 = get_next_leaf(s2)
         # leaf1 is leaf2's prefix 
         elif leaf2[index2:].startswith(leaf1[index1:]) :
-            index2 = len(leaf1) - index1
+            print("leaf1 prefix of leaf2 selected")
+            index2 = index2 + (len(leaf1) - index1)
             index1 = 0 
             leaf1 = get_next_leaf(s1)
         else:
+            print("else selected")
             return False
     return (index1 == len(leaf1)) and (index2 == len(leaf2))
 
@@ -121,6 +121,7 @@ t1 = tree_node("N1")
 t1.left = tree_node("N2")
 t1.right = tree_node("N3")
 t1.left.left = tree_node("Go")
+t1.left.right = tree_node("")
 t1.right.left = tree_node("og")
 t1.right.right = tree_node("le!")
 
@@ -156,8 +157,9 @@ t6.right = tree_node("gle!")
 # print(get_tree_string(t3))
 # print(get_tree_string(t4))
 
-print(same_tree_string_low_mem(t1, t5))
-print(same_tree_string_low_mem(t1, t6))
+# print(same_tree_string_low_mem(t1, t5))
+print(same_tree_string_low_mem(t1, t4))
+# get_all_leaves([t1])
 
 
 
