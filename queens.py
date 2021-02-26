@@ -6,11 +6,7 @@ class cord():
 		return f'cord({self.x}, {self.y})'
 	def __str__(self):
 		return f'cord({self.x}, {self.y})'
-# (4,3) and (2,5)
-# (4,3) and (2,1)
-# (4,3) and (6,5)
-# (4,3) and (6,1)
-# chessboard is 8 x 8
+
 def copy_matrix(mat):
 	new_mat = []
 	for i,row in enumerate(mat):
@@ -28,7 +24,6 @@ def crosses_paths(pos1, pos2):
 	return (pos1.x == pos2.x) or (pos1.y == pos2.y) or is_diagonal(pos1, pos2)
 
 def queen_points(queen_positions, visited, n):
-	# print(queen_positions)
 	if (len(queen_positions) == n):
 		return [queen_positions]
 
@@ -72,16 +67,4 @@ def get_all_queen_pos(n = 8):
 	for combo in all_combos:
 		print(combo)
 
-def print_board(n = 8):
-	board = []
-	for i in range(n):
-		board.append([])
-		for j in range(n):
-			board[i].append((i,j))
-	for row in board:
-		print(row)
-
-
-
-# print_board()
 get_all_queen_pos()
