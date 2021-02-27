@@ -96,24 +96,24 @@ def same_tree_string_low_mem(t1, t2):
     index1 = 0
     index2 = 0 
     while(len(s1) > 0 and len(s2) > 0):
-        print("")
-        print(f"leaf1: {leaf1}, leaf2: {leaf2}")
-        print(f"index1: {index1}, index2: {index2}")
-        print(f"leaf1[index1:]: {leaf1[index1:]}, leaf2[index2:]: {leaf2[index2:]}")
+        # print("")
+        # print(f"leaf1: {leaf1}, leaf2: {leaf2}")
+        # print(f"index1: {index1}, index2: {index2}")
+        # print(f"leaf1[index1:]: {leaf1[index1:]}, leaf2[index2:]: {leaf2[index2:]}")
         # leaf2 is leaf1's prefix
         if leaf1[index1:].startswith(leaf2[index2:]) :
-            print("leaf2 prefix of leaf1 selected")
+            # print("leaf2 prefix of leaf1 selected")
             index1 = index1 + (len(leaf2) - index2)
             index2 = 0 
             leaf2 = get_next_leaf(s2)
         # leaf1 is leaf2's prefix 
         elif leaf2[index2:].startswith(leaf1[index1:]) :
-            print("leaf1 prefix of leaf2 selected")
+            # print("leaf1 prefix of leaf2 selected")
             index2 = index2 + (len(leaf1) - index1)
             index1 = 0 
             leaf1 = get_next_leaf(s1)
         else:
-            print("else selected")
+            # print("else selected")
             return False
     return (index1 == len(leaf1)) and (index2 == len(leaf2))
 
@@ -152,13 +152,22 @@ t6 = tree_node("N1")
 t6.left = tree_node("Goo")
 t6.right = tree_node("gle!")
 
+t7 = tree_node("N1")
+t7.left = tree_node("N2")
+t7.right = tree_node("N3")
+t7.left.left = tree_node("Go")
+t7.left.right = tree_node("")
+t7.right.left = tree_node("og")
+t7.right.right = tree_node("le!")
+
 # print(get_tree_string(t1))
 # print(get_tree_string(t2))
 # print(get_tree_string(t3))
 # print(get_tree_string(t4))
 
-# print(same_tree_string_low_mem(t1, t5))
-print(same_tree_string_low_mem(t1, t4))
+# can't do consecutive tests with the same trees because visited status gets updated in the function
+print(same_tree_string_low_mem(t1, t5))
+print(same_tree_string_low_mem(t7, t4))
 # get_all_leaves([t1])
 
 

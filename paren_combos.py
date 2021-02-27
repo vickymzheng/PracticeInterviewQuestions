@@ -35,4 +35,4 @@ def paren_combos(n):
 	for combo in combos:
 		print(combo['combo'])
 
-paren_combos(3)
+paren_combos(4)
