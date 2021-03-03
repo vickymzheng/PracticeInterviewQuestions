@@ -80,16 +80,19 @@ def make_graph(mat):
 			graph[curr_cord] = get_adjacent_cords(mat, curr_cord)
 	return graph
 
-def max_connected_colors(mat):
-	graph = make_graph(mat)
-	components = get_components(graph)
-	max_component_size = 0
+def get_max_component_size(components):
+	max_collection_size = 0
 	for component_id in components:
 		component = components[component_id]
 		num_component_members = len(component)
 		if num_component_members > max_component_size:
 			max_component_size = num_component_members
 	return max_component_size
+
+def max_connected_colors(mat):
+	graph = make_graph(mat)
+	components = get_components(graph)
+	return get_max_component_size(components)
 
 def print_mat(mat):
 	for row in mat:
@@ -123,7 +126,6 @@ mat[2][2] = b
 mat[2][3] = b
 
 print_mat(mat)
-# print_graph(make_graph(mat))
 print(max_connected_colors(mat))
 
 
